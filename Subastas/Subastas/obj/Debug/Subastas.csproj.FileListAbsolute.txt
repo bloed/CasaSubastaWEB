@@ -1,0 +1,5 @@
+C:\Users\Josue\Documents\TEC\3 Semestre\Bases de datos l\Progras\2 - 3\CasaSubastaWEB\Subastas\Subastas\bin\Subastas.dll
+C:\Users\Josue\Documents\TEC\3 Semestre\Bases de datos l\Progras\2 - 3\CasaSubastaWEB\Subastas\Subastas\bin\Subastas.pdb
+C:\Users\Josue\Documents\TEC\3 Semestre\Bases de datos l\Progras\2 - 3\CasaSubastaWEB\Subastas\Subastas\obj\Debug\Subastas.csprojResolveAssemblyReference.cache
+C:\Users\Josue\Documents\TEC\3 Semestre\Bases de datos l\Progras\2 - 3\CasaSubastaWEB\Subastas\Subastas\obj\Debug\Subastas.dll
+C:\Users\Josue\Documents\TEC\3 Semestre\Bases de datos l\Progras\2 - 3\CasaSubastaWEB\Subastas\Subastas\obj\Debug\Subastas.pdb
