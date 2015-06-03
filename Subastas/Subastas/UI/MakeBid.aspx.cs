@@ -16,7 +16,7 @@ namespace Subastas
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Page.Response.Redirect("BidAuction.aspx");//cambia la pagina
+            Page.Response.Redirect("BidAuction2.aspx");//cambia la pagina
         }
 
         protected void Button2_Click(object sender, EventArgs e)

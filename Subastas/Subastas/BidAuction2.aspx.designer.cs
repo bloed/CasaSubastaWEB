@@ -10,7 +10,7 @@
 namespace Subastas {
     
     
-    public partial class RestartAuction {
+    public partial class BidAuction2 {
         
         /// <summary>
         /// form1 control.
@@ -40,12 +40,12 @@ namespace Subastas {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// btn_Restart control.
+        /// Button2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Restart;
+        protected global::System.Web.UI.WebControls.Button Button2;
     }
 }
