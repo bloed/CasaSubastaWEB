@@ -57,27 +57,50 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AuctionHistoryUse.aspx" />
     <Content Include="BidAuction.aspx" />
+    <Content Include="BidAuction2.aspx" />
+    <Content Include="BidsHistoryProduct.aspx" />
     <Content Include="CreateAuction.aspx" />
     <Content Include="GetIdentification.aspx" />
+    <Content Include="ListAuctions.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MakeBid.aspx" />
     <Content Include="MenuAll.aspx" />
     <Content Include="ParticipantsMenu.aspx" />
     <Content Include="RestartAuction.aspx" />
     <Content Include="Styles.css" />
-    <Content Include="teset.aspx">
-      <BrowseToURL>~/Pau.aspx</BrowseToURL>
-    </Content>
     <Content Include="Web.config" />
+    <Content Include="WonBidsHistoryUser.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuctionHistoryUse.aspx.cs">
+      <DependentUpon>AuctionHistoryUse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AuctionHistoryUse.aspx.designer.cs">
+      <DependentUpon>AuctionHistoryUse.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BidAuction.aspx.cs">
       <DependentUpon>BidAuction.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BidAuction.aspx.designer.cs">
       <DependentUpon>BidAuction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BidAuction2.aspx.cs">
+      <DependentUpon>BidAuction2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BidAuction2.aspx.designer.cs">
+      <DependentUpon>BidAuction2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BidsHistoryProduct.aspx.cs">
+      <DependentUpon>BidsHistoryProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BidsHistoryProduct.aspx.designer.cs">
+      <DependentUpon>BidsHistoryProduct.aspx</DependentUpon>
     </Compile>
     <Compile Include="CreateAuction.aspx.cs">
       <DependentUpon>CreateAuction.aspx</DependentUpon>
@@ -92,6 +115,13 @@
     </Compile>
     <Compile Include="GetIdentification.aspx.designer.cs">
       <DependentUpon>GetIdentification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListAuctions.aspx.cs">
+      <DependentUpon>ListAuctions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListAuctions.aspx.designer.cs">
+      <DependentUpon>ListAuctions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -129,12 +159,12 @@
     <Compile Include="RestartAuction.aspx.designer.cs">
       <DependentUpon>RestartAuction.aspx</DependentUpon>
     </Compile>
-    <Compile Include="teset.aspx.cs">
-      <DependentUpon>teset.aspx</DependentUpon>
+    <Compile Include="WonBidsHistoryUser.aspx.cs">
+      <DependentUpon>WonBidsHistoryUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="teset.aspx.designer.cs">
-      <DependentUpon>teset.aspx</DependentUpon>
+    <Compile Include="WonBidsHistoryUser.aspx.designer.cs">
+      <DependentUpon>WonBidsHistoryUser.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

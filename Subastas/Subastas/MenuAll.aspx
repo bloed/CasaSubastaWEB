@@ -11,13 +11,13 @@
     <div>
     
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OTHER</div>
-        <asp:Button ID="Button1" runat="server" style="margin-left: 54px" Text="List Auctions" />
+        <asp:Button ID="Button1" runat="server" style="margin-left: 54px" Text="List Auctions" OnClick="Button1_Click" />
         <p>
-            <asp:Button ID="Button4" runat="server" style="margin-left: 54px" Text="Bids History Of Product" />
+            <asp:Button ID="Button4" runat="server" style="margin-left: 54px" Text="Bids History Of Product" OnClick="Button4_Click" />
         </p>
-        <asp:Button ID="Button2" runat="server" style="margin-left: 54px" Text="Auctions History Of User" />
+        <asp:Button ID="Button2" runat="server" style="margin-left: 54px" Text="Auctions History Of User" OnClick="Button2_Click" />
         <p>
-            <asp:Button ID="Button3" runat="server" style="margin-left: 54px" Text="Won Bids History of User" />
+            <asp:Button ID="Button3" runat="server" style="margin-left: 54px" Text="Won Bids History of User" OnClick="Button3_Click" />
         </p>
         <asp:Button ID="Button5" runat="server" OnClick="Button5_Click" style="margin-left: 54px" Text="Back" />
     </form>

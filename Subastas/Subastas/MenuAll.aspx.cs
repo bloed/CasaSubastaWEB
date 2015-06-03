@@ -18,5 +18,25 @@ namespace Subastas
         {
             Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Page.Response.Redirect("ListAuctions.aspx");
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Page.Response.Redirect("BidsHistoryProduct.aspx");//cambia la pagina
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Page.Response.Redirect("AuctionHistoryUse.aspx");//cambia la pagina
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            Page.Response.Redirect("WonBidsHistoryUser.aspx");//cambia la pagina
+        }
     }
 }
