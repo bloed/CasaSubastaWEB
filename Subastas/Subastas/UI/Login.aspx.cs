@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace Subastas
 {
@@ -25,8 +26,8 @@ namespace Subastas
                     //cmd.Parameters.Add("@LastName", SqlDbType.VarChar).Value = txtLastName.Text;
 
                     con.Open();
-                    GridView1.DataSource = cmd.ExecuteReader();
-                    GridView1.DataBind();
+                    //GridView1.DataSource = cmd.ExecuteReader();
+                    //GridView1.DataBind();
                     con.Close();
                 }
             }*/

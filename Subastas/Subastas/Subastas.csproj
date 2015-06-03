@@ -57,92 +57,90 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BidAuction.aspx" />
-    <Content Include="CreateAuction.aspx" />
-    <Content Include="GetIdentification.aspx" />
-    <Content Include="Login.aspx" />
-    <Content Include="MakeBid.aspx" />
-    <Content Include="MenuAll.aspx" />
-    <Content Include="ParticipantsMenu.aspx" />
-    <Content Include="RestartAuction.aspx" />
-    <Content Include="Styles.css" />
-    <Content Include="teset.aspx">
-      <BrowseToURL>~/Pau.aspx</BrowseToURL>
-    </Content>
-    <Content Include="Web.config" />
+    <Content Include="UI\BidAuction.aspx" />
+    <Content Include="UI\CreateAuction.aspx" />
+    <Content Include="UI\GetIdentification.aspx" />
+    <Content Include="UI\Login.aspx" />
+    <Content Include="UI\MakeBid.aspx" />
+    <Content Include="UI\MenuAll.aspx" />
+    <Content Include="UI\ParticipantsMenu.aspx" />
+    <Content Include="UI\RestartAuction.aspx" />
+    <Content Include="UI\Styles.css" />
+    <Content Include="UI\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BidAuction.aspx.cs">
+    <Compile Include="UI\BidAuction.aspx.cs">
       <DependentUpon>BidAuction.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BidAuction.aspx.designer.cs">
+    <Compile Include="UI\BidAuction.aspx.designer.cs">
       <DependentUpon>BidAuction.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CreateAuction.aspx.cs">
+    <Compile Include="UI\CreateAuction.aspx.cs">
       <DependentUpon>CreateAuction.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CreateAuction.aspx.designer.cs">
+    <Compile Include="UI\CreateAuction.aspx.designer.cs">
       <DependentUpon>CreateAuction.aspx</DependentUpon>
     </Compile>
-    <Compile Include="GetIdentification.aspx.cs">
+    <Compile Include="Logic\DataBaseConnection.cs" />
+    <Compile Include="UI\GetIdentification.aspx.cs">
       <DependentUpon>GetIdentification.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="GetIdentification.aspx.designer.cs">
+    <Compile Include="UI\GetIdentification.aspx.designer.cs">
       <DependentUpon>GetIdentification.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Login.aspx.cs">
+    <Compile Include="UI\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Login.aspx.designer.cs">
+    <Compile Include="UI\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MakeBid.aspx.cs">
+    <Compile Include="UI\MakeBid.aspx.cs">
       <DependentUpon>MakeBid.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MakeBid.aspx.designer.cs">
+    <Compile Include="UI\MakeBid.aspx.designer.cs">
       <DependentUpon>MakeBid.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MenuAll.aspx.cs">
+    <Compile Include="UI\MenuAll.aspx.cs">
       <DependentUpon>MenuAll.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MenuAll.aspx.designer.cs">
+    <Compile Include="UI\MenuAll.aspx.designer.cs">
       <DependentUpon>MenuAll.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ParticipantsMenu.aspx.cs">
+    <Compile Include="UI\ParticipantsMenu.aspx.cs">
       <DependentUpon>ParticipantsMenu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ParticipantsMenu.aspx.designer.cs">
+    <Compile Include="UI\ParticipantsMenu.aspx.designer.cs">
       <DependentUpon>ParticipantsMenu.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RestartAuction.aspx.cs">
+    <Compile Include="UI\RestartAuction.aspx.cs">
       <DependentUpon>RestartAuction.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="RestartAuction.aspx.designer.cs">
+    <Compile Include="UI\RestartAuction.aspx.designer.cs">
       <DependentUpon>RestartAuction.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="teset.aspx.cs">
-      <DependentUpon>teset.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="teset.aspx.designer.cs">
-      <DependentUpon>teset.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web.Debug.config">
+    <None Include="UI\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <None Include="Web.Release.config">
+    <None Include="UI\Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

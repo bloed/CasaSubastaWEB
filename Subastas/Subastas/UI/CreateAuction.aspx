@@ -42,7 +42,7 @@
         <p>
             Image:</p>
         <asp:Button ID="Button1" runat="server" Height="25px" OnClick="Button1_Click" style="margin-left: 19px; margin-top: 21px" Text="Done" />
-        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" style="margin-left: 27px" Text="Back" />
+        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" style="margin-left: 27px" Text="Back" Width="41px" />
     </form>
 </body>
 </html>
