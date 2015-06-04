@@ -10,13 +10,21 @@ namespace Subastas
     public class DataBaseConnection
     {
         public static String _Url;
+        public static DataBaseConnection instance = null;//singleton
         public SqlConnection _Con;
         public String _UserName;
         public String _UserId;
 
+        public static DataBaseConnection getDatabaseConnection(){
+            if(instance == null){
+                instance = new DataBaseConnection();
+            }
+            return instance;
+        }
+
         public DataBaseConnection()
         {
-            _Url = "Server = XELOP-PC; database = SUBASTAS; integrated security=SSPI";
+            _Url = "Server = LDA; database = SUBASTAS; integrated security=SSPI";
             _Con = new SqlConnection(_Url);
         }
 
@@ -25,21 +33,21 @@ namespace Subastas
             
         }
 
-        public void createAuction(String pName, String pDescription, String pImage, String pSubcategory, String pCategory, String pDelivery, String pDate, int pPrice)
+        public void createAuction(String pName, String pDescriptionItem, String pDeliveryDetails, String pImage, String pSubcategory, String pCategory, String pDate, int pPrice)
         {
             SqlCommand cmd = new SqlCommand("USP_CreateSubasta", _Con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             System.Diagnostics.Debug.WriteLine(pName);
             cmd.Parameters.Add("@NombreItem", SqlDbType.VarChar).Value = pName;
-            cmd.Parameters.Add("@DescripcionItem", SqlDbType.VarChar).Value = pDescription;
-            cmd.Parameters.Add("@FotoItem", SqlDbType.Image).Value = DBNull.Value; 
+            cmd.Parameters.Add("@DescripcionItem", SqlDbType.VarChar).Value = pDescriptionItem;
+            cmd.Parameters.Add("@FotoItem", SqlDbType.Image).Value = DBNull.Value;//por mientras manda un nulo
             cmd.Parameters.Add("@Subcategoria", SqlDbType.VarChar).Value = pSubcategory;
             cmd.Parameters.Add("@Categoria", SqlDbType.VarChar).Value = pCategory;
-            cmd.Parameters.Add("@FechaFinal", SqlDbType.Date).Value = pDate;
-            cmd.Parameters.Add("@DetallesEntrega", SqlDbType.VarChar).Value = pDescription;
+            cmd.Parameters.Add("@FechaFinal", SqlDbType.DateTime).Value = pDate;
+            cmd.Parameters.Add("@DetallesEntrega", SqlDbType.VarChar).Value = pDeliveryDetails;
             cmd.Parameters.Add("@PrecioBase", SqlDbType.Int).Value = pPrice;
-            cmd.Parameters.Add("@AliasVendedor", SqlDbType.VarChar).Value = "part";
+            cmd.Parameters.Add("@AliasVendedor", SqlDbType.VarChar).Value = _UserName;
            
             _Con.Open();
             cmd.ExecuteNonQuery();
@@ -62,5 +70,6 @@ namespace Subastas
                     con.Close();
                 }
             }*/
+        // ClientScript.RegisterStartupScript(this.GetType(), "esto no afecta", "alert('" + display + "');", true);
     }
 }

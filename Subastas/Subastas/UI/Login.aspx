@@ -22,12 +22,15 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Casa de Subastas<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Participants Version)</div>
         <p>
-            USERNAME:&nbsp; <input id="txt_Username" type="text" /></p>
+            USERNAME:&nbsp; 
+            <asp:TextBox ID="txt_Username" runat="server"></asp:TextBox>
+        </p>
         <p>
             &nbsp;</p>
         <p>
             PASSWORD:&nbsp;
-            <input id="txt_Password" type="text" /></p>
+            <asp:TextBox ID="txt_Password" runat="server"></asp:TextBox>
+        </p>
         <p>
             <asp:Button ID="btn_Login" runat="server" Height="27px" OnClick="btn_Login_Click" style="margin-left: 160px" Text="LOGIN" Width="67px" />
         </p>

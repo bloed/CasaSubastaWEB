@@ -23,22 +23,28 @@
         </p>
         <p>
             Subcategory:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input id="txt_Subcategory" type="text" /></p>
-        <p>
-            Category:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input id="txt_Category" type="text" /></p>
-        <p>
-            Delivery Details:
-            <input id="txt_DeliveryDetails" type="text" /></p>
-        <p>
-            Last Date:<asp:TextBox ID="txt_LastDate" runat="server" style="margin-left: 39px"></asp:TextBox>
+            <asp:TextBox ID="txt_SubCategory" runat="server"></asp:TextBox>
         </p>
         <p>
-            Initial Price:<asp:TextBox ID="txt_InitialPrice" runat="server" style="margin-left: 34px"></asp:TextBox>
+            Category:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:TextBox ID="txt_Category" runat="server"></asp:TextBox>
+        </p>
+        <p>
+            Delivery Details:
+            <asp:TextBox ID="txt_DeliveryDetails" runat="server"></asp:TextBox>
+        </p>
+        <p>
+            Last Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:TextBox ID="txt_LastDate" runat="server"></asp:TextBox>
+        </p>
+        <p>
+            Initial Price:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:TextBox ID="txt_InitialPrice" runat="server"></asp:TextBox>
         </p>
         <p>
             Item´s Description:&nbsp;&nbsp;&nbsp;
-            <textarea id="txt_ItemDescription" name="S1"></textarea></p>
+            <asp:TextBox ID="txt_ItemDescription" runat="server" Width="380px"></asp:TextBox>
+        </p>
         <p>
             Image:</p>
         <asp:Button ID="Button1" runat="server" Height="25px" OnClick="Button1_Click" style="margin-left: 19px; margin-top: 21px" Text="Done" />

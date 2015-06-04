@@ -22,8 +22,15 @@ namespace Subastas
 
         protected void Button1_Click(object sender, EventArgs e) //Done
         {
-            DataBaseConnection x = new DataBaseConnection();
-            x.createAuction("tres","tres",null,"caca2","caca","tres","2009-6-5",100);
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
+            String itemName = this.txt_ItemName.Text;
+            String category = this.txt_Category.Text;
+            String subcategory = this.txt_SubCategory.Text;
+            String deliveryDetails = this.txt_DeliveryDetails.Text;
+            String lastDate = this.txt_LastDate.Text;
+            Int32 price = Int32.Parse(this.txt_InitialPrice.Text);
+            String itemDescription = this.txt_ItemDescription.Text;
+            con.createAuction(itemName, itemDescription, deliveryDetails, "image", subcategory, category, lastDate, price);
             Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
         }
     }
