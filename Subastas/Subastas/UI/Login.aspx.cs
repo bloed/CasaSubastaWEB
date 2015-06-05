@@ -13,6 +13,7 @@ namespace Subastas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
             
         }
 
@@ -23,6 +24,7 @@ namespace Subastas
             String password = this.txt_Password.Text;
             con._UserName = username;
             Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
+            
         }
     }
 }
