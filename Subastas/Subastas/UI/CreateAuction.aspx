@@ -45,8 +45,10 @@
             Item´s Description:&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="txt_ItemDescription" runat="server" Width="380px"></asp:TextBox>
         </p>
-        <p>
-            Image:</p>
+        <p id="wtf">
+            Image:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:FileUpload ID="up_Image" runat="server" />
+        </p>
         <asp:Button ID="Button1" runat="server" Height="25px" OnClick="Button1_Click" style="margin-left: 19px; margin-top: 21px" Text="Done" />
         <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" style="margin-left: 27px" Text="Back" Width="41px" />
     </form>

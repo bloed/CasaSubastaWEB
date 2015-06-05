@@ -13,7 +13,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AUCTION HISTORY OF USER</div>
         <asp:GridView ID="GridView1" runat="server" style="margin-left: 140px; margin-top: 17px">
         </asp:GridView>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" style="margin-left: 200px; margin-top: 16px" Text="Button" />
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" style="margin-left: 200px; margin-top: 16px" Text="Back" />
     </form>
 </body>
 </html>

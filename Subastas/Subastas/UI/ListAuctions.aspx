@@ -13,9 +13,11 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LIST AUCTIONS</div>
     &nbsp;<br />
         Category:&nbsp;&nbsp;&nbsp;&nbsp;
-        <input id="txt_Category" type="text" /><p>
+        <asp:TextBox ID="txt_Category" runat="server"></asp:TextBox>
+&nbsp;<p>
             Subcategory
-            <input id="txt_Subcategory" type="text" /><asp:Button ID="Button1" runat="server" style="margin-left: 37px" Text="List" />
+            <asp:TextBox ID="txt_Subcategory" runat="server"></asp:TextBox>
+            <asp:Button ID="Button1" runat="server" style="margin-left: 37px" Text="List" />
         </p>
         <asp:GridView ID="GridView1" runat="server" style="margin-left: 76px">
         </asp:GridView>

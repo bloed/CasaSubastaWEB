@@ -13,7 +13,8 @@
     </div>
         <p>
             Identification:&nbsp;&nbsp;&nbsp;
-            <input id="txt_Id" type="text" /></p>
+            <asp:TextBox ID="txt_Id" runat="server"></asp:TextBox>
+        </p>
         <asp:Button ID="Button1" runat="server" style="margin-left: 90px" Text="Accept" />
         <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" style="margin-left: 23px" Text="Back" />
     </form>

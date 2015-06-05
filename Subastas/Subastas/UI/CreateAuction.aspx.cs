@@ -30,8 +30,10 @@ namespace Subastas
             String lastDate = this.txt_LastDate.Text;
             Int32 price = Int32.Parse(this.txt_InitialPrice.Text);
             String itemDescription = this.txt_ItemDescription.Text;
+            
             con.createAuction(itemName, itemDescription, deliveryDetails, "image", subcategory, category, lastDate, price);
             Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
+            //if(this.up_Image.has
         }
     }
 }

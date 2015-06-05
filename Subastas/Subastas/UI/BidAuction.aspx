@@ -20,10 +20,12 @@
             &nbsp;</p>
         <p>
             Category:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input id="txt_Category" type="text" /></p>
+            <asp:TextBox ID="txt_Category" runat="server"></asp:TextBox>
+        </p>
         <p>
             Subcategory:&nbsp;
-            <input id="txt_Subcategory" type="text" /></p>
+            <asp:TextBox ID="txt_Subcategory" runat="server"></asp:TextBox>
+        </p>
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" style="margin-left: 50px; margin-top: 25px" Text="Back" />
         <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" style="margin-left: 76px" Text="Accept" />
     </form>
