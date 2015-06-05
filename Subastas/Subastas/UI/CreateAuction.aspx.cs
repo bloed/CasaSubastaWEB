@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
-
+using System.Data;
 namespace Subastas
 {
     public partial class CreateAuction : System.Web.UI.Page
@@ -30,10 +30,19 @@ namespace Subastas
             String lastDate = this.txt_LastDate.Text;
             Int32 price = Int32.Parse(this.txt_InitialPrice.Text);
             String itemDescription = this.txt_ItemDescription.Text;
-            
-            con.createAuction(itemName, itemDescription, deliveryDetails, "image", subcategory, category, lastDate, price);
+            byte[] image;
+            if (this.up_Image.HasFile)
+            {
+                image = new byte[up_Image.PostedFile.ContentLength];
+                HttpPostedFile uploadImage = up_Image.PostedFile;
+                uploadImage.InputStream.Read(image, 0, up_Image.PostedFile.ContentLength);       
+            }   
+            else//no image
+            {
+
+            }
+            con.createAuction(itemName, itemDescription, deliveryDetails, image, subcategory, category, lastDate, price);
             Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
-            //if(this.up_Image.has
         }
     }
 }

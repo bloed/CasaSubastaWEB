@@ -37,7 +37,6 @@ namespace Subastas
         {
             SqlCommand cmd = new SqlCommand("USP_CreateSubasta", _Con);
             cmd.CommandType = CommandType.StoredProcedure;
-
             System.Diagnostics.Debug.WriteLine(pName);
             cmd.Parameters.Add("@NombreItem", SqlDbType.VarChar).Value = pName;
             cmd.Parameters.Add("@DescripcionItem", SqlDbType.VarChar).Value = pDescriptionItem;
