@@ -61,11 +61,12 @@
     <Content Include="UI\BidAuction.aspx" />
     <Content Include="UI\BidAuction2.aspx" />
     <Content Include="UI\BidsHistoryProduct.aspx" />
+    <Content Include="UI\CommentSales.aspx" />
+    <Content Include="UI\CommentWins.aspx" />
     <Content Include="UI\CreateAuction.aspx" />
     <Content Include="UI\GetIdentification.aspx" />
     <Content Include="UI\ListAuctions.aspx" />
     <Content Include="UI\Login.aspx" />
-    <Content Include="UI\MakeBid.aspx" />
     <Content Include="UI\MenuAll.aspx" />
     <Content Include="UI\ParticipantsMenu.aspx" />
     <Content Include="UI\RestartAuction.aspx" />
@@ -101,6 +102,20 @@
     <Compile Include="UI\BidsHistoryProduct.aspx.designer.cs">
       <DependentUpon>BidsHistoryProduct.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UI\CommentSales.aspx.cs">
+      <DependentUpon>CommentSales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\CommentSales.aspx.designer.cs">
+      <DependentUpon>CommentSales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CommentWins.aspx.cs">
+      <DependentUpon>CommentWins.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\CommentWins.aspx.designer.cs">
+      <DependentUpon>CommentWins.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UI\CreateAuction.aspx.cs">
       <DependentUpon>CreateAuction.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -129,13 +144,6 @@
     </Compile>
     <Compile Include="UI\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MakeBid.aspx.cs">
-      <DependentUpon>MakeBid.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\MakeBid.aspx.designer.cs">
-      <DependentUpon>MakeBid.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\MenuAll.aspx.cs">
       <DependentUpon>MenuAll.aspx</DependentUpon>
@@ -183,9 +191,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

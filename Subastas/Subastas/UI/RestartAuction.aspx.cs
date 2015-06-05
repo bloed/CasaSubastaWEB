@@ -26,7 +26,9 @@ namespace Subastas
 
         protected void btn_Restart_Click(object sender, EventArgs e)
         {
-            Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
+            Int32 AuctionId = Int32.Parse(this.txt_Id.Text);
+            _Connection.restartSubasta(AuctionId);
+            Page.Response.Redirect("CreateAuction.aspx");//cambia la pagina
         }
     }
 }

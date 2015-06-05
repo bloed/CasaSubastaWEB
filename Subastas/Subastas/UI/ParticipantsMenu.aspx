@@ -25,6 +25,12 @@
         <p>
             <asp:Button ID="btn_More" runat="server" style="margin-left: 100px" Text="More" OnClick="btn_More_Click" />
         </p>
+        <p>
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" style="margin-left: 99px" Text="Comment your sales" />
+        </p>
+        <p>
+            <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" style="margin-left: 102px" Text="Comment your wins" />
+        </p>
     </form>
 </body>
 </html>

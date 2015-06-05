@@ -11,7 +11,7 @@ namespace Subastas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -21,6 +21,10 @@ namespace Subastas
 
         protected void Button2_Click(object sender, EventArgs e)
         {
+            String category = this.txt_Category.Text;
+            String subCategory = this.txt_Subcategory.Text;
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
+            con.getSubastasCategoria(category, subCategory);
             Page.Response.Redirect("BidAuction2.aspx");
         }
     }

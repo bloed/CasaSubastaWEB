@@ -33,5 +33,15 @@ namespace Subastas
         {
             Page.Response.Redirect("MenuAll.aspx");//cambia la pagina
         }
+
+        protected void Button1_Click1(object sender, EventArgs e)
+        {
+            Page.Response.Redirect("CommentSales.aspx");//cambia la pagina
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Page.Response.Redirect("CommentWins.aspx");//cambia la pagina
+        }
     }
 }
