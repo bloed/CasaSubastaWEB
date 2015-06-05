@@ -30,7 +30,7 @@ namespace Subastas
             String lastDate = this.txt_LastDate.Text;
             Int32 price = Int32.Parse(this.txt_InitialPrice.Text);
             String itemDescription = this.txt_ItemDescription.Text;
-            byte[] image;
+            byte[] image  = null; 
             if (this.up_Image.HasFile)
             {
                 image = new byte[up_Image.PostedFile.ContentLength];

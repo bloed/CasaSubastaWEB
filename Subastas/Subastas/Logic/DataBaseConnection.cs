@@ -15,7 +15,8 @@ namespace Subastas
         public static DataBaseConnection instance = null;//singleton
         public SqlConnection _Con;
         public String _UserName;
-        public String _UserId;
+        public Int32 _UserId;
+        public SqlDataReader _CurrentReader;
 
         public static DataBaseConnection getDatabaseConnection(){
             if(instance == null){
@@ -34,7 +35,7 @@ namespace Subastas
 
         public DataBaseConnection()
         {
-            _Url = "Server = XELOP-PC; database = SUBASTAS; integrated security=SSPI";
+            _Url = "Server = LDA; database = SUBASTAS; integrated security=SSPI";
             _Con = new SqlConnection(_Url);
             var data = System.Text.Encoding.ASCII.GetBytes("caca");
             data = System.Security.Cryptography.SHA1.Create().ComputeHash(data);
@@ -49,14 +50,14 @@ namespace Subastas
 
         
 
-        public void createAuction(String pName, String pDescriptionItem, String pDeliveryDetails, String pImage, String pSubcategory, String pCategory, String pDate, int pPrice)
+        public void createAuction(String pName, String pDescriptionItem, String pDeliveryDetails, byte[] pImage, String pSubcategory, String pCategory, String pDate, int pPrice)
         {
             SqlCommand cmd = new SqlCommand("USP_CreateSubasta", _Con);
             cmd.CommandType = CommandType.StoredProcedure;
             System.Diagnostics.Debug.WriteLine(pName);
             cmd.Parameters.Add("@NombreItem", SqlDbType.VarChar).Value = pName;
             cmd.Parameters.Add("@DescripcionItem", SqlDbType.VarChar).Value = pDescriptionItem;
-            cmd.Parameters.Add("@FotoItem", SqlDbType.Image).Value = DBNull.Value;//por mientras manda un nulo
+            cmd.Parameters.Add("@FotoItem", SqlDbType.Image).Value = pImage;//por mientras manda un nulo
             cmd.Parameters.Add("@Subcategoria", SqlDbType.VarChar).Value = pSubcategory;
             cmd.Parameters.Add("@Categoria", SqlDbType.VarChar).Value = pCategory;
             cmd.Parameters.Add("@FechaFinal", SqlDbType.DateTime).Value = pDate;
@@ -84,6 +85,7 @@ namespace Subastas
         }
         public SqlDataReader getSubastasCategoria(String pCategory, String pSubcategory)
         {
+            _Con.Close();
             SqlCommand cmd = new SqlCommand("USP_GetSubastasActivasCategoria", _Con);
             SqlDataReader rdr = null;
 
@@ -94,6 +96,7 @@ namespace Subastas
 
             _Con.Open();
             rdr = cmd.ExecuteReader();
+            _CurrentReader = rdr;
             //la conexion queda abaierta para darle el rdr al gridview
 
             return rdr;
@@ -110,7 +113,7 @@ namespace Subastas
         }
         public void createBid(int pId, int pMoney)
         {
-            SqlCommand cmd = new SqlCommand("USP_RestartSubasta", _Con);
+            SqlCommand cmd = new SqlCommand("USP_CreatePuja", _Con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pId;
@@ -130,6 +133,7 @@ namespace Subastas
             cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pId;
             _Con.Open();
             rdr = cmd.ExecuteReader();
+            
             return rdr; // queda abierto para que el grid lo pueda leer, se debe cerrar del otro lado
         }
 
@@ -160,8 +164,8 @@ namespace Subastas
             SqlCommand cmd = new SqlCommand("USP_GetComprasForComprador", _Con);
             SqlDataReader rdr = null;
             cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.Add("@IdComprador", SqlDbType.VarChar).Value = _UserId ;
+            _UserId = 2;//para preubaa
+            cmd.Parameters.Add("@IdComprador", SqlDbType.Int).Value = _UserId ;
             _Con.Open();
             rdr = cmd.ExecuteReader();
             return rdr; // queda abierto para que el grid lo pueda leer, se debe cerrar del otro lado
@@ -171,7 +175,7 @@ namespace Subastas
             SqlCommand cmd = new SqlCommand("USP_GetVentasForVendedor", _Con);
             SqlDataReader rdr = null;
             cmd.CommandType = CommandType.StoredProcedure;
-
+            _UserId = 1;//para prueba
             cmd.Parameters.Add("@IdVendedor", SqlDbType.VarChar).Value = _UserId;
             _Con.Open();
             rdr = cmd.ExecuteReader();

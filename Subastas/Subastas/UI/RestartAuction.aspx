@@ -13,6 +13,10 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RESTART AUCTIONS</div>
         <asp:GridView ID="GridView1" runat="server" Height="133px" style="margin-left: 95px; margin-top: 27px" Width="243px">
         </asp:GridView>
+        <br />
+        Id Subasta :&nbsp;
+        <asp:TextBox ID="txt_Id" runat="server"></asp:TextBox>
+        <br />
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" style="margin-left: 96px; margin-top: 102px" Text="Back" />
         <asp:Button ID="btn_Restart" runat="server" OnClick="btn_Restart_Click" style="margin-left: 91px; margin-top: 0px;" Text="Restart" />
     </form>
