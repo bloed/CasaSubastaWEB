@@ -41,7 +41,7 @@ namespace Subastas
             {
 
             }
-            con.createAuction(itemName, itemDescription, deliveryDetails, image, subcategory, category, lastDate, price);
+            //con.createAuction(itemName, itemDescription, deliveryDetails, image, subcategory, category, lastDate, price);
             Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
         }
     }

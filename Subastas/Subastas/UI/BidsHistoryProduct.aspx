@@ -11,9 +11,15 @@
     <div>
     
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BIDS HISTORY OF PRODUCT</div>
-        <asp:GridView ID="GridView1" runat="server" style="margin-left: 90px; margin-top: 32px">
+        <asp:GridView ID="_Grid" runat="server" style="margin-left: 90px; margin-top: 32px">
         </asp:GridView>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" style="margin-left: 145px; margin-top: 68px" Text="Back" />
+        <asp:Label ID="Label1" runat="server" Text="Auction ID"></asp:Label>
+        <asp:TextBox ID="_txt_ID" runat="server" style="margin-left: 38px; margin-top: 32px" Width="117px"></asp:TextBox>
+&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="_btn_List" runat="server" OnClick="_btn_List_Click" style="margin-left: 22px" Text="List" Width="60px" />
+        <p style="height: 97px">
+            <asp:Button ID="_btn_Back" runat="server" OnClick="_btn_Back_Click" style="margin-left: 150px" Text="Back" />
+        </p>
     </form>
 </body>
 </html>

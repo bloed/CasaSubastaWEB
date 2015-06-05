@@ -10,10 +10,16 @@
     <form id="form1" runat="server">
     <div>
     
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WON BIDS HISTORY OF USER</div>
-        <asp:GridView ID="GridView1" runat="server" style="margin-left: 156px; margin-top: 12px">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WON BIDS HISTORY OF USER</div>
+        <asp:GridView ID="GridView1" runat="server" style="margin-left: 94px; margin-top: 12px">
         </asp:GridView>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" style="margin-left: 223px; margin-top: 17px" Text="Back" />
+        <asp:Label ID="Label1" runat="server" Text="UserName"></asp:Label>
+        <asp:TextBox ID="_txt_ID" runat="server" style="margin-left: 38px; margin-top: 32px" Width="117px"></asp:TextBox>
+&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="_btn_List" runat="server" OnClick="_btn_List_Click" style="margin-left: 22px" Text="List" Width="60px" />
+        <p>
+            <asp:Button ID="_btn_Back" runat="server" OnClick="_btn_Back_Click" style="margin-left: 151px" Text="Back" />
+        </p>
     </form>
 </body>
 </html>

@@ -146,7 +146,7 @@ namespace Subastas
         }
         public SqlDataReader getAuctionsWon(String pAlias)
         {
-            SqlCommand cmd = new SqlCommand("USP_GetSubastasForVendedor", _Con);
+            SqlCommand cmd = new SqlCommand("USP_GetPujasGanadorasForUsuario", _Con);
             SqlDataReader rdr = null;
             cmd.CommandType = CommandType.StoredProcedure;
 

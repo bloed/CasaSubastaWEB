@@ -17,7 +17,7 @@
 &nbsp;<p>
             Subcategory
             <asp:TextBox ID="txt_Subcategory" runat="server"></asp:TextBox>
-            <asp:Button ID="Button1" runat="server" style="margin-left: 37px" Text="List" />
+            <asp:Button ID="Button1" runat="server" style="margin-left: 37px" Text="List" OnClick="Button1_Click" />
         </p>
         <asp:GridView ID="GridView1" runat="server" style="margin-left: 76px">
         </asp:GridView>
