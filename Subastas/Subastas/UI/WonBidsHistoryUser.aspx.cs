@@ -12,7 +12,7 @@ namespace Subastas
         DataBaseConnection _Connection;
         protected void Page_Load(object sender, EventArgs e)
         {
-            _Connection = DataBaseConnection.getDatabaseConnection();
+            _Connection = DataBaseConnection.getDatabaseConnection(this);
         }
 
         protected void _btn_Back_Click(object sender, EventArgs e)

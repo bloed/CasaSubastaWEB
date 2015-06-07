@@ -13,13 +13,13 @@ namespace Subastas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection(this);
             
         }
 
         protected void btn_Login_Click(object sender, EventArgs e)
         {
-            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection(this);
             String username = this.txt_Username.Text;
             String password = this.txt_Password.Text;
             con._UserName = username;

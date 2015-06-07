@@ -14,7 +14,7 @@ namespace Subastas.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection(this);
             SqlDataReader caca = con.getBoughtAuctions();
             this.GridView1.DataSource = caca;
             GridView1.DataBind();
@@ -30,9 +30,12 @@ namespace Subastas.UI
         {
             Int32 Id = Int32.Parse(this.txt_Id.Text);
             String Commment = this.txt_Comment.Text;
-            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
-            con.setBoughtComment(Commment, Id);
-            Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection(this);
+            Boolean error = con.setBoughtComment(Commment, Id);
+            if (!error)
+            {
+                Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
+            }
         }
     }
 }

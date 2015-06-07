@@ -11,7 +11,7 @@ namespace Subastas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection(this);
             GridView1.DataSource = con._CurrentReader;
             try
             {
@@ -30,9 +30,12 @@ namespace Subastas
         {
             Int32 Id = Int32.Parse(this.txt_Id.Text);
             Int32 Amount = Int32.Parse(this.txt_Amount.Text);
-            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
-            con.createBid(Id, Amount);
-            Page.Response.Redirect("ParticipantsMenu.aspx");
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection(this);
+            Boolean error = con.createBid(Id, Amount);
+            if (!error)
+            {
+                Page.Response.Redirect("ParticipantsMenu.aspx");
+            }
         }
     }
 }

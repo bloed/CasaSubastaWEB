@@ -22,7 +22,7 @@ namespace Subastas
 
         protected void Button1_Click(object sender, EventArgs e) //Done
         {
-            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection(this);
             String itemName = this.txt_ItemName.Text;
             String category = this.txt_Category.Text;
             String subcategory = this.txt_SubCategory.Text;
@@ -41,8 +41,11 @@ namespace Subastas
             {
 
             }
-            //con.createAuction(itemName, itemDescription, deliveryDetails, image, subcategory, category, lastDate, price);
-            Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
+            //boolean error = con.createAuction(itemName, itemDescription, deliveryDetails, image, subcategory, category, lastDate, price);
+            //if (!error)
+            //{
+                Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
+            //}
         }
     }
 }

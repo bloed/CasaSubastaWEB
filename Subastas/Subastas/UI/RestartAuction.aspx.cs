@@ -12,7 +12,7 @@ namespace Subastas
         DataBaseConnection _Connection;
         protected void Page_Load(object sender, EventArgs e)
         {
-            _Connection = DataBaseConnection.getDatabaseConnection();
+            _Connection = DataBaseConnection.getDatabaseConnection(this);
 
             GridView1.DataSource = _Connection.getRestartableAuctions();
             GridView1.DataBind();
@@ -27,8 +27,11 @@ namespace Subastas
         protected void btn_Restart_Click(object sender, EventArgs e)
         {
             Int32 AuctionId = Int32.Parse(this.txt_Id.Text);
-            _Connection.restartSubasta(AuctionId);
-            Page.Response.Redirect("CreateAuction.aspx");//cambia la pagina
+            Boolean error = _Connection.restartSubasta(AuctionId);
+            if (!error)
+            {
+                Page.Response.Redirect("CreateAuction.aspx");//cambia la pagina
+            }
         }
     }
 }

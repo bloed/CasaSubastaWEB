@@ -23,7 +23,7 @@ namespace Subastas
         {
             String category = this.txt_Category.Text;
             String subCategory = this.txt_Subcategory.Text;
-            DataBaseConnection con = DataBaseConnection.getDatabaseConnection();
+            DataBaseConnection con = DataBaseConnection.getDatabaseConnection(this);
             con.getSubastasCategoria(category, subCategory);
             Page.Response.Redirect("BidAuction2.aspx");
         }

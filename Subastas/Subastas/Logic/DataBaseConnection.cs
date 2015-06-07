@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Text;
 using System.Security.Cryptography;
+using System.Web.UI;
 
 namespace Subastas
 {
@@ -17,10 +18,13 @@ namespace Subastas
         public String _UserName;
         public Int32 _UserId;
         public SqlDataReader _CurrentReader;
+        public static Page _Page;
 
-        public static DataBaseConnection getDatabaseConnection(){
+        public static DataBaseConnection getDatabaseConnection(Page x){
+            _Page = x;
+
             if(instance == null){
-                instance = new DataBaseConnection();
+                instance = new DataBaseConnection(x);
             }
             return instance;
         }
@@ -33,177 +37,289 @@ namespace Subastas
             return hashText;
         }
 
-        public DataBaseConnection()
+        public DataBaseConnection(Page x)
         {
-            _Url = "Server = LDA; database = SUBASTAS; integrated security=SSPI";
-            _Con = new SqlConnection(_Url);
-            var data = System.Text.Encoding.ASCII.GetBytes("caca");
-            data = System.Security.Cryptography.SHA1.Create().ComputeHash(data);
-            System.Diagnostics.Debug.WriteLine("sha1");
-            Sha1("caca");
+            setConnection(x);
+            
         }
 
-        public void setConnection()
+        public void setConnection(Page x)
         {
-            
+            try
+            {
+                _Url = "Server = XELOP-PC; database = SUBASTAS; integrated security=SSPI";
+                _Con = new SqlConnection(_Url);
+                
+            }
+            catch (SqlException e)
+            {
+                x.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+            }
         }
 
         
 
-        public void createAuction(String pName, String pDescriptionItem, String pDeliveryDetails, byte[] pImage, String pSubcategory, String pCategory, String pDate, int pPrice)
+        public Boolean createAuction(String pName, String pDescriptionItem, String pDeliveryDetails, byte[] pImage, String pSubcategory, String pCategory, String pDate, int pPrice)
         {
-            SqlCommand cmd = new SqlCommand("USP_CreateSubasta", _Con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            System.Diagnostics.Debug.WriteLine(pName);
-            cmd.Parameters.Add("@NombreItem", SqlDbType.VarChar).Value = pName;
-            cmd.Parameters.Add("@DescripcionItem", SqlDbType.VarChar).Value = pDescriptionItem;
-            cmd.Parameters.Add("@FotoItem", SqlDbType.Image).Value = pImage;//por mientras manda un nulo
-            cmd.Parameters.Add("@Subcategoria", SqlDbType.VarChar).Value = pSubcategory;
-            cmd.Parameters.Add("@Categoria", SqlDbType.VarChar).Value = pCategory;
-            cmd.Parameters.Add("@FechaFinal", SqlDbType.DateTime).Value = pDate;
-            cmd.Parameters.Add("@DetallesEntrega", SqlDbType.VarChar).Value = pDeliveryDetails;
-            cmd.Parameters.Add("@PrecioBase", SqlDbType.Int).Value = pPrice;
-            cmd.Parameters.Add("@AliasVendedor", SqlDbType.VarChar).Value = _UserName;
-           
-            _Con.Open();
-            cmd.ExecuteNonQuery();
-            _Con.Close();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_CreateSubasta", _Con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                System.Diagnostics.Debug.WriteLine(pName);
+                cmd.Parameters.Add("@NombreItem", SqlDbType.VarChar).Value = pName;
+                cmd.Parameters.Add("@DescripcionItem", SqlDbType.VarChar).Value = pDescriptionItem;
+                cmd.Parameters.Add("@FotoItem", SqlDbType.Image).Value = pImage;//por mientras manda un nulo
+                cmd.Parameters.Add("@Subcategoria", SqlDbType.VarChar).Value = pSubcategory;
+                cmd.Parameters.Add("@Categoria", SqlDbType.VarChar).Value = pCategory;
+                cmd.Parameters.Add("@FechaFinal", SqlDbType.DateTime).Value = pDate;
+                cmd.Parameters.Add("@DetallesEntrega", SqlDbType.VarChar).Value = pDeliveryDetails;
+                cmd.Parameters.Add("@PrecioBase", SqlDbType.Int).Value = pPrice;
+                cmd.Parameters.Add("@AliasVendedor", SqlDbType.VarChar).Value = _UserName;
+
+                _Con.Open();
+                cmd.ExecuteNonQuery();
+                _Con.Close();
+                return false;
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                return true;
+            }
         }
         public SqlDataReader getRestartableAuctions(){
-            SqlCommand cmd = new SqlCommand("USP_GetSubastasReiniciables", _Con);
-            SqlDataReader rdr = null;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_GetSubastasReiniciables", _Con);
+                SqlDataReader rdr = null;
 
-            cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@AliasUsuario", SqlDbType.VarChar).Value = _UserName; 
+                cmd.Parameters.Add("@AliasUsuario", SqlDbType.VarChar).Value = _UserName;
+                
+                _Con.Open();
+                rdr = cmd.ExecuteReader();
+                //la conexion queda abaierta para darle el rdr al gridview
 
-            _Con.Open();
-            rdr = cmd.ExecuteReader();
-            //la conexion queda abaierta para darle el rdr al gridview
-
-            return rdr;
+                return rdr;
+            }
+            catch (SqlException e)
+            {
+                _Con.Close();
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                return null;
+            }
         }
         public SqlDataReader getSubastasCategoria(String pCategory, String pSubcategory)
         {
-            _Con.Close();
-            SqlCommand cmd = new SqlCommand("USP_GetSubastasActivasCategoria", _Con);
-            SqlDataReader rdr = null;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_GetSubastasActivasCategoria", _Con);
+                SqlDataReader rdr = null;
 
-            cmd.CommandType = CommandType.StoredProcedure;
-            
-            cmd.Parameters.Add("@Categoria", SqlDbType.VarChar).Value = pCategory;
-            cmd.Parameters.Add("@SubCategoria", SqlDbType.VarChar).Value = pSubcategory;
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            _Con.Open();
-            rdr = cmd.ExecuteReader();
-            _CurrentReader = rdr;
-            //la conexion queda abaierta para darle el rdr al gridview
+                cmd.Parameters.Add("@Categoria", SqlDbType.VarChar).Value = pCategory;
+                cmd.Parameters.Add("@SubCategoria", SqlDbType.VarChar).Value = pSubcategory;
 
-            return rdr;
+                _Con.Open();
+                rdr = cmd.ExecuteReader();
+                _CurrentReader = rdr;
+                //la conexion queda abaierta para darle el rdr al gridview
+
+                return rdr;
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
+                return null;
+            }
         }
-        public void restartSubasta(int pId)
+        public Boolean restartSubasta(int pId)
         {
-            SqlCommand cmd = new SqlCommand("USP_RestartSubasta", _Con);
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_RestartSubasta", _Con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pId;
-            _Con.Open();
-            cmd.ExecuteNonQuery();
-            _Con.Close();
+                cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pId;
+                _Con.Open();
+                cmd.ExecuteNonQuery();
+                _Con.Close();
+                return false;
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                return true;
+            }
         }
-        public void createBid(int pId, int pMoney)
+        public Boolean createBid(int pId, int pMoney)
         {
-            SqlCommand cmd = new SqlCommand("USP_CreatePuja", _Con);
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_CreatePuja", _Con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pId;
-            cmd.Parameters.Add("@Monto", SqlDbType.Int).Value = pMoney;
-            cmd.Parameters.Add("@Alias", SqlDbType.VarChar).Value = _UserName;
-            _Con.Open();
-            cmd.ExecuteNonQuery();
-            _Con.Close();
+                cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pId;
+                cmd.Parameters.Add("@Monto", SqlDbType.Int).Value = pMoney;
+                cmd.Parameters.Add("@Alias", SqlDbType.VarChar).Value = _UserName;
+                _Con.Open();
+                cmd.ExecuteNonQuery();
+                _Con.Close();
+                return false;
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                return true;
+            }
 
         }
         public SqlDataReader getBidsForAuction(int pId)
         {
-            SqlCommand cmd = new SqlCommand("USP_GetPujasForSubasta", _Con);
-            SqlDataReader rdr = null;
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_GetPujasForSubasta", _Con);
+                SqlDataReader rdr = null;
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pId;
-            _Con.Open();
-            rdr = cmd.ExecuteReader();
-            
-            return rdr; // queda abierto para que el grid lo pueda leer, se debe cerrar del otro lado
+                cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pId;
+                _Con.Open();
+                rdr = cmd.ExecuteReader();
+
+                return rdr; // queda abierto para que el grid lo pueda leer, se debe cerrar del otro lado
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
+                return null;
+            }
         }
 
         public SqlDataReader getAuctionsForUser(String pAlias)
         {
-            SqlCommand cmd = new SqlCommand("USP_GetSubastasForVendedor", _Con);
-            SqlDataReader rdr = null;
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_GetSubastasForVendedor", _Con);
+                SqlDataReader rdr = null;
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@Alias", SqlDbType.VarChar).Value = pAlias;
-            _Con.Open();
-            rdr = cmd.ExecuteReader();
-            return rdr; // queda abierto para que el grid lo pueda leer, se debe cerrar del otro lado
+                cmd.Parameters.Add("@Alias", SqlDbType.VarChar).Value = pAlias;
+                _Con.Open();
+                rdr = cmd.ExecuteReader();
+                return rdr; // queda abierto para que el grid lo pueda leer, se debe cerrar del otro lado
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
+                return null;
+            }
         }
         public SqlDataReader getAuctionsWon(String pAlias)
         {
-            SqlCommand cmd = new SqlCommand("USP_GetPujasGanadorasForUsuario", _Con);
-            SqlDataReader rdr = null;
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_GetPujasGanadorasForUsuario", _Con);
+                SqlDataReader rdr = null;
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@Alias", SqlDbType.VarChar).Value = pAlias;
-            _Con.Open();
-            rdr = cmd.ExecuteReader();
-            return rdr; // queda abierto para que el grid lo pueda leer, se debe cerrar del otro lado
+                cmd.Parameters.Add("@Alias", SqlDbType.VarChar).Value = pAlias;
+                _Con.Open();
+                rdr = cmd.ExecuteReader();
+                return rdr; // queda abierto para que el grid lo pueda leer, se debe cerrar del otro lado
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
+                return null;
+            }
         }
         public SqlDataReader getBoughtAuctions()
         {
-            SqlCommand cmd = new SqlCommand("USP_GetComprasForComprador", _Con);
-            SqlDataReader rdr = null;
-            cmd.CommandType = CommandType.StoredProcedure;
-            _UserId = 2;//para preubaa
-            cmd.Parameters.Add("@IdComprador", SqlDbType.Int).Value = _UserId ;
-            _Con.Open();
-            rdr = cmd.ExecuteReader();
-            return rdr; // queda abierto para que el grid lo pueda leer, se debe cerrar del otro lado
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_GetComprasForComprador", _Con);
+                SqlDataReader rdr = null;
+                cmd.CommandType = CommandType.StoredProcedure;
+                _UserId = 2;//para preubaa
+                cmd.Parameters.Add("@IdComprador", SqlDbType.Int).Value = _UserId;
+                _Con.Open();
+                rdr = cmd.ExecuteReader();
+                return rdr; // queda abierto para que el grid lo pueda leer, se debe cerrar del otro lado
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
+                return null;
+            }
         }
         public SqlDataReader getSoldAuctions()
         {
-            SqlCommand cmd = new SqlCommand("USP_GetVentasForVendedor", _Con);
-            SqlDataReader rdr = null;
-            cmd.CommandType = CommandType.StoredProcedure;
-            _UserId = 1;//para prueba
-            cmd.Parameters.Add("@IdVendedor", SqlDbType.VarChar).Value = _UserId;
-            _Con.Open();
-            rdr = cmd.ExecuteReader();
-            return rdr;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_GetVentasForVendedor", _Con);
+                SqlDataReader rdr = null;
+                cmd.CommandType = CommandType.StoredProcedure;
+                _UserId = 1;//para prueba
+                cmd.Parameters.Add("@IdVendedor", SqlDbType.VarChar).Value = _UserId;
+                _Con.Open();
+                rdr = cmd.ExecuteReader();
+                return rdr;
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
+                return null;
+            }
         }
-        public void setBoughtComment(String pComment, int pAuctionId)
+        public Boolean setBoughtComment(String pComment, int pAuctionId)
         {
-            SqlCommand cmd = new SqlCommand("USP_AddCommentComprador", _Con);
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_AddCommentComprador", _Con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@ComentarioxComprador", SqlDbType.VarChar).Value = pComment;
-            cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pAuctionId;
+                cmd.Parameters.Add("@ComentarioxComprador", SqlDbType.VarChar).Value = pComment;
+                cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pAuctionId;
 
-            _Con.Open();
-            cmd.ExecuteNonQuery();
-            _Con.Close();
+                _Con.Open();
+                cmd.ExecuteNonQuery();
+                _Con.Close();
+                return false;
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                return true;
+            }
         }
-        public void setSoldComment(String pComment, int pAuctionId)
+        public Boolean setSoldComment(String pComment, int pAuctionId)
         {
-            SqlCommand cmd = new SqlCommand("USP_AddCommentVendedor", _Con);
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_AddCommentVendedor", _Con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@ComentarioxVendedor", SqlDbType.VarChar).Value = pComment;
-            cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pAuctionId;
+                cmd.Parameters.Add("@ComentarioxVendedor", SqlDbType.VarChar).Value = pComment;
+                cmd.Parameters.Add("@IdSubasta", SqlDbType.Int).Value = pAuctionId;
 
-            _Con.Open();
-            cmd.ExecuteNonQuery();
-            _Con.Close();
+                _Con.Open();
+                cmd.ExecuteNonQuery();
+                _Con.Close();
+                return false;
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                return true;
+            }
         }
 
 
