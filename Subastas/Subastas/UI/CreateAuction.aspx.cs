@@ -12,7 +12,7 @@ namespace Subastas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            Int32 xaxa = 2;  
         }
 
         protected void Button2_Click(object sender, EventArgs e)
@@ -28,24 +28,35 @@ namespace Subastas
             String subcategory = this.txt_SubCategory.Text;
             String deliveryDetails = this.txt_DeliveryDetails.Text;
             String lastDate = this.txt_LastDate.Text;
-            Int32 price = Int32.Parse(this.txt_InitialPrice.Text);
+            //Int32 price = Int32.Parse(this.txt_InitialPrice.Text);
             String itemDescription = this.txt_ItemDescription.Text;
-            byte[] image  = null; 
+            byte[] image  = null;
+            ulong imageSize = 0;
             if (this.up_Image.HasFile)
             {
                 image = new byte[up_Image.PostedFile.ContentLength];
                 HttpPostedFile uploadImage = up_Image.PostedFile;
-                uploadImage.InputStream.Read(image, 0, up_Image.PostedFile.ContentLength);       
-            }   
-            else//no image
-            {
-
+                uploadImage.InputStream.Read(image, 0, up_Image.PostedFile.ContentLength);
+                try
+                {
+                    imageSize = (ulong)image.Length;
+                }
+                catch (Exception ex) {
+                    imageSize = 25001;
+                }
             }
-            //boolean error = con.createAuction(itemName, itemDescription, deliveryDetails, image, subcategory, category, lastDate, price);
-            //if (!error)
-            //{
+            if (imageSize > 25000)
+            {
+                this.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('Solo se pueden poner imagenes no mayores a 25 KB.');", true);
+            }
+            else
+            {
+                Boolean error = con.createAuction(itemName, itemDescription, deliveryDetails, image, subcategory, category, lastDate, price);
+                if (!error)
+                {
                 Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
-            //}
+                }
+            }
         }
     }
 }
