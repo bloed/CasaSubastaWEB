@@ -190,6 +190,7 @@
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+    <Content Include="Web1.config" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

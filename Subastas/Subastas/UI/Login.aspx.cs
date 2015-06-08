@@ -23,7 +23,9 @@ namespace Subastas
             String username = this.txt_Username.Text;
             String password = this.txt_Password.Text;
             con._UserName = username;
-            Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
+            Boolean error = con.verifyPassword(this.txt_Username.Text, this.txt_Password.Text);
+            if(!error)
+                Page.Response.Redirect("ParticipantsMenu.aspx");//cambia la pagina
             
         }
     }

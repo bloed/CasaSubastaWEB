@@ -20,11 +20,11 @@ namespace Subastas
         public SqlDataReader _CurrentReader;
         public static Page _Page;
 
-        public static DataBaseConnection getDatabaseConnection(Page x){
-            _Page = x;
+        public static DataBaseConnection getDatabaseConnection(Page pPage){
+            _Page = pPage;
 
             if(instance == null){
-                instance = new DataBaseConnection(x);
+                instance = new DataBaseConnection();
             }
             return instance;
         }
@@ -37,13 +37,13 @@ namespace Subastas
             return hashText;
         }
 
-        public DataBaseConnection(Page x)
+        public DataBaseConnection()
         {
-            setConnection(x);
+            setConnection();
             
         }
 
-        public void setConnection(Page x)
+        public void setConnection()
         {
             try
             {
@@ -53,11 +53,40 @@ namespace Subastas
             }
             catch (SqlException e)
             {
-                x.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
             }
         }
 
-        
+        public Boolean verifyPassword(String pAlias, String pPassword)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_GetPassForUsuario", _Con);
+                cmd.Parameters.Add("@Alias", SqlDbType.VarChar).Value = pAlias;
+                cmd.Parameters.Add("@Password", SqlDbType.VarChar,45).Direction = ParameterDirection.Output;
+                cmd.CommandType = CommandType.StoredProcedure;
+                _Con.Open();
+                cmd.ExecuteNonQuery();
+                String password =(cmd.Parameters["@Password"].Value.ToString());
+                _Con.Close();
+
+                if (password.Equals(Sha1(pPassword)))
+                {
+                    return false;
+                }
+                else
+                {
+                    _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + "PASSWORD incorrecto" + "');", true);
+                    return true;
+                }
+
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                return true;
+            }
+        }
 
         public Boolean createAuction(String pName, String pDescriptionItem, String pDeliveryDetails, byte[] pImage, String pSubcategory, String pCategory, String pDate, int pPrice)
         {
@@ -65,7 +94,6 @@ namespace Subastas
             {
                 SqlCommand cmd = new SqlCommand("USP_CreateSubasta", _Con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                System.Diagnostics.Debug.WriteLine(pName);
                 cmd.Parameters.Add("@NombreItem", SqlDbType.VarChar).Value = pName;
                 cmd.Parameters.Add("@DescripcionItem", SqlDbType.VarChar).Value = pDescriptionItem;
                 cmd.Parameters.Add("@FotoItem", SqlDbType.Image).Value = pImage;//por mientras manda un nulo
