@@ -28,7 +28,7 @@ namespace Subastas
             String subcategory = this.txt_SubCategory.Text;
             String deliveryDetails = this.txt_DeliveryDetails.Text;
             String lastDate = this.txt_LastDate.Text;
-            //Int32 price = Int32.Parse(this.txt_InitialPrice.Text);
+            Int32 price = Int32.Parse(this.txt_InitialPrice.Text);
             String itemDescription = this.txt_ItemDescription.Text;
             byte[] image  = null;
             ulong imageSize = 0;
