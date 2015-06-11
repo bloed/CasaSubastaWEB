@@ -19,6 +19,7 @@ namespace Subastas
         public Int32 _UserId;
         public SqlDataReader _CurrentReader;
         public static Page _Page;
+        public int idSubasta;
 
         public static DataBaseConnection getDatabaseConnection(Page pPage){
             _Page = pPage;
@@ -49,9 +50,13 @@ namespace Subastas
             {
                 _Url = "Server = XELOP-PC; database = SUBASTAS; integrated security=SSPI";
                 _Con = new SqlConnection(_Url);
-                
+
             }
             catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+            }
+            catch (Exception e)
             {
                 _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
             }
@@ -72,6 +77,7 @@ namespace Subastas
 
                 if (password.Equals(Sha1(pPassword)))
                 {
+                    _UserName = pAlias;
                     return false;
                 }
                 else
@@ -84,7 +90,32 @@ namespace Subastas
             catch (SqlException e)
             {
                 _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
                 return true;
+            }
+        }
+
+        public int getAmountReduce()
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_GetSubasta", _Con);
+                cmd.Parameters.Add("@IdSubasta", SqlDbType.VarChar).Value = this.idSubasta;
+                cmd.Parameters.Add("@MontoViejo", SqlDbType.Int).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("@MontoMejora", SqlDbType.Int).Direction = ParameterDirection.Output;
+                cmd.CommandType = CommandType.StoredProcedure;
+                _Con.Open();
+                cmd.ExecuteNonQuery();
+                int oldValue = Convert.ToInt32(cmd.Parameters["@MontoViejo"].Value.ToString());
+                int decrease = Convert.ToInt32(cmd.Parameters["@MontoMejora"].Value.ToString());
+                _Con.Close();
+                return oldValue - decrease;
+            }
+            catch (SqlException e)
+            {
+                _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
+                return 0;
             }
         }
 
@@ -96,7 +127,10 @@ namespace Subastas
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@NombreItem", SqlDbType.VarChar).Value = pName;
                 cmd.Parameters.Add("@DescripcionItem", SqlDbType.VarChar).Value = pDescriptionItem;
-                cmd.Parameters.Add("@FotoItem", SqlDbType.Image).Value = pImage;//por mientras manda un nulo
+                if(pImage == null)
+                    cmd.Parameters.Add("@FotoItem", SqlDbType.Image).Value = DBNull.Value;//por mientras manda un nulo
+                else
+                    cmd.Parameters.Add("@FotoItem", SqlDbType.Image).Value = pImage;//por mientras manda un nulo
                 cmd.Parameters.Add("@Subcategoria", SqlDbType.VarChar).Value = pSubcategory;
                 cmd.Parameters.Add("@Categoria", SqlDbType.VarChar).Value = pCategory;
                 cmd.Parameters.Add("@FechaFinal", SqlDbType.DateTime).Value = pDate;
@@ -112,31 +146,37 @@ namespace Subastas
             catch (SqlException e)
             {
                 _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
                 return true;
             }
         }
         public SqlDataReader getRestartableAuctions(){
             try
             {
+                Console.WriteLine(_UserName);
                 SqlCommand cmd = new SqlCommand("USP_GetSubastasReiniciables", _Con);
                 SqlDataReader rdr = null;
 
                 cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.Add("@AliasUsuario", SqlDbType.VarChar).Value = _UserName;
+                System.Diagnostics.Debug.WriteLine(_UserName);
+                cmd.Parameters.Add("@Alias", SqlDbType.VarChar).Value = "participante";
                 
                 _Con.Open();
                 rdr = cmd.ExecuteReader();
                 //la conexion queda abaierta para darle el rdr al gridview
+                System.Diagnostics.Debug.WriteLine(_UserName);
 
                 return rdr;
             }
             catch (SqlException e)
             {
-                _Con.Close();
+                
                 _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
+               
                 return null;
             }
+            
         }
         public SqlDataReader getSubastasCategoria(String pCategory, String pSubcategory)
         {
@@ -180,6 +220,7 @@ namespace Subastas
             catch (SqlException e)
             {
                 _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
                 return true;
             }
         }
@@ -201,6 +242,7 @@ namespace Subastas
             catch (SqlException e)
             {
                 _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
                 return true;
             }
 
@@ -325,6 +367,7 @@ namespace Subastas
             catch (SqlException e)
             {
                 _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
                 return true;
             }
         }
@@ -346,6 +389,7 @@ namespace Subastas
             catch (SqlException e)
             {
                 _Page.ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('" + e.Message + "');", true);
+                _Con.Close();
                 return true;
             }
         }

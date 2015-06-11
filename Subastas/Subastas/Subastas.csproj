@@ -167,6 +167,13 @@
     <Compile Include="UI\RestartAuction.aspx.designer.cs">
       <DependentUpon>RestartAuction.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UI\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UI\WonBidsHistoryUser.aspx.cs">
       <DependentUpon>WonBidsHistoryUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -182,6 +189,7 @@
     <None Include="UI\Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="UI\WebForm1.aspx" />
     <Content Include="UI\WonBidsHistoryUser.aspx" />
     <Content Include="web.config" />
     <None Include="web.Debug.config">
